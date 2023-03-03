@@ -23,7 +23,7 @@ const headerContent = `
             <a href="#Publicar">Publicar</a> 
           </li>
           <li> 
-            <a href="#Sair">Login</a> 
+            <a href="#Login">Login</a> 
           </li>
         </ul>
       </nav>

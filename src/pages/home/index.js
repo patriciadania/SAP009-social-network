@@ -8,6 +8,7 @@ export default() =>{
   container.append(Header());
   
   const sectionMain = document.createElement('section');
+  sectionMain.classList.add('section-main');
 
   const template = ` 
 

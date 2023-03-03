@@ -3,6 +3,8 @@
 
 import home from './pages/home/index.js';
 import publicar from './pages/publicar/index.js';
+import login from './pages/login/index.js';
+import register from './pages/cadastrar/index.js';
 
 const main = document.querySelector('#root');
 
@@ -19,6 +21,8 @@ const init = () => {
       case "#Login":
         main.appendChild(login());
         break;
+      case "#Register":
+        main.appendChild(register());
       default:
         main.appendChild(home());
     }
@@ -28,6 +32,7 @@ const init = () => {
 
 window.addEventListener('load', () => {
   main.appendChild(home());
-  init();
+  init(); 
+  
 });
 

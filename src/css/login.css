@@ -1,0 +1,72 @@
+.section-login{
+    flex-direction: column;
+    width: 100vw ;
+    background-color: #2C3B42;
+    gap: 3vh;
+    border-radius: 30px;
+    align-items: center;
+    padding: 20px 0;
+    margin-top: 4vh;
+
+}
+.section-register{
+    gap:5vh
+}
+.section-login h1{
+    color: var(--red);
+}
+
+.section-login input{
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid var(--grey) ;
+    width: 80vw;
+    padding: 5px 0 ;
+    color: var(--white);
+    outline: none;
+}
+.login-container{
+    background-color: var(--bg);
+    height: 100vh;
+}
+
+.icon-google{
+    width: 40px;
+}
+
+.header-login, .logo{
+    flex-direction: column;
+    align-items: center;
+    color: white;   
+    
+}
+
+.button-login{
+    background-color: var(--red);
+    color: white;
+    border-radius: 20px 20px 20px 20px;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    width: 80vw;
+}
+.button-google{
+    background: none;
+    border: none;
+    cursor: pointer;
+    cursor: pointer;
+}
+
+.txt-login, .txt-conta{
+    color:white;
+    
+}
+
+.hr-login{
+    width: 80vw;
+    border: 1px solid var(--grey);
+}
+
+
+
+

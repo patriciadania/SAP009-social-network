@@ -1,0 +1,12 @@
+@import url(../css/login.css);
+@import url(../css/home.css);
+
+:root{
+    --white:#FFF3FC;
+    --red:#C53F3F;
+    --grey:#455A64;
+    --bg: #364850; 
+    --bg2:#263238 ;
+    --bgHeader:#213037;
+   
+}

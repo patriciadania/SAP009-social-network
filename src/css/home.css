@@ -6,16 +6,9 @@
     margin: 0;
 }
 
-:root{
-    --white:#FFF3FC;
-    --red:#C53F3F;
-    --grey:#455A64;
-    --bg: #364850; 
-    --bg2:#263238 ;
-    --bgHeader:#213037;
-   
+.section-main{
+    background-color: var(--bg);
 }
-
 main{
     background-color: var(--bg);
     height: calc(100vh - 246px);
