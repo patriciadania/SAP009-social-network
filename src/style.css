@@ -216,6 +216,7 @@ li {
     align-items: center;
     resize: none;
     padding: 5px;
+    color: var(--white)
 }
 .icons{
     gap: 70px; 
