@@ -23,8 +23,6 @@ const init = () => {
         break;
       case "#Register":
         main.appendChild(register());
-      default:
-        main.appendChild(home());
     }
   });
 }
@@ -35,4 +33,5 @@ window.addEventListener('load', () => {
   init(); 
   
 });
+
 
