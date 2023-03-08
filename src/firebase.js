@@ -23,3 +23,4 @@ const auth = getAuth(firebaseApp);
 const db = getFirestore(firebaseApp);
 
 const provider = new firebase.auth.GoogleAuthProvider();
+//teste
