@@ -26,6 +26,7 @@ export default () => {
             <span class='txt-conta'> ainda não tem conta? </span>
             <button class='button-login' id='button-cadastro' type='button'> CADASTRE-SE </button>
 
+
         </form>
    
     `;
