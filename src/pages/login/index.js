@@ -25,6 +25,8 @@ export default () => {
             <hr class='hr-login'> 
             <span class='txt-conta'> ainda não tem conta? </span>
             <button class='button-login' id='button-cadastro' type='button'> CADASTRE-SE </button>
+
+
         </form>
    
     `;
@@ -51,3 +53,5 @@ export default () => {
 
     return loginContainer;
 };
+
+
