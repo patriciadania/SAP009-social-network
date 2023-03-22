@@ -19,6 +19,7 @@ export default () => {
       <button type='button' id='botao-postar' class='botao-postar'>Postar</button>
     </div>
   </div>   
+  <img class='girl-publicar' src='../../imagens/girlCellphone.svg' alt='Desenho-de-desenvolvedora'>
   </main>
   `;
   sectionMain.innerHTML = template;

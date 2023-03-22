@@ -28,32 +28,33 @@ export default () => {
 
   const register = loginContainer.querySelector('#cadastro-firebase');
   register.addEventListener('click', () => {
-    const email = loginContainer.querySelector('#email-cadastro');
-    const senha = loginContainer.querySelector('#senha-cadastro');
     const nome = loginContainer.querySelector('#nome-fulana');
     const sobrenome = loginContainer.querySelector('#sobrenome-fulana');
     const usuario = loginContainer.querySelector('#usuario-fulana');
-    const emailfulana = loginContainer.querySelector('#email-cadastro');
-
-    userData(nome.value, sobrenome.value, usuario.value, emailfulana.value);
-
-    createUser(email.value, senha.value, nome.value, sobrenome.value, usuario.value)
-      .then(() => {
-        window.location.hash = '#login';
-      })
-      .catch((error) => {
-        // const errorCode = error.code;
-        // const errorMessage = error.message;
-        // eslint-disable-next-line no-console, no-alert
-        alert('Erro ao cadastrar usuário, verifique os campos preenchidos!');
-        // eslint-disable-next-line no-console
-        console.error(error);
-        // ..
-      });
-
-    // console.log(email.value, senha.value);
-    // alert('ok!');
+    const email = loginContainer.querySelector('#email-cadastro');
+    const senha = loginContainer.querySelector('#senha-cadastro');
+    if (usuario.value === '' || nome.value === '' || sobrenome.value === '') {
+      alert('Por favor, preencha todos os campos.');
+    } else {
+      // const emailfulana = loginContainer.querySelector('#email-cadastro');
+      userData(nome.value, sobrenome.value, usuario.value, email.value);
+      createUser(email.value, senha.value, nome.value, sobrenome.value, usuario.value)
+        .then(() => {
+          window.location.hash = '#login';
+        })
+        .catch((error) => {
+          // eslint-disable-next-line no-console, no-alert
+          console.error(error.message);
+          if (error.message === 'Firebase: Error (auth/invalid-email).') {
+            alert('Email inválido!');
+          } else if (error.message === 'index.js?t=1679521157275:46 Firebase: Error (auth/internal-error).') {
+            alert('Senha inválida');
+          }
+          alert('Erro ao cadastrar usuário, verifique os campos preenchidos!');
+        });
+    }
   });
-
+  // console.log(email.value, senha.value);
+  // alert('ok!');
   return loginContainer;
 };
