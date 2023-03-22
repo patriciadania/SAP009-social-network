@@ -46,8 +46,11 @@ export default () => {
     // eslint-disable-next-line no-unused-vars
       .catch((error) => {
         // eslint-disable-next-line no-alert
-        console.log(error);
-        alert('Erro ao efetuar login!');
+        if (error.message === 'Firebase: Error (auth/user-not-found).') {
+          alert('Usuário não encontrado');
+        } else if (error.message === 'Firebase: Error (auth/wrong-password).') {
+          alert('Senha incorreta');
+        }
       });
   });
 
@@ -62,6 +65,8 @@ export default () => {
       .catch((error) => {
         console.log(error);
         alert('Erro ao efetuar login com o Google!');
+        console.log(error.message);
+        console.log(error.name);
       });
   });
   return loginContainer;

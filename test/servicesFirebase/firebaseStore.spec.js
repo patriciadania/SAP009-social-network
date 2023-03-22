@@ -1,5 +1,25 @@
-import { addDoc, collection, getDocs } from 'firebase/firestore';
-import { newPost, userData, accessPost } from '../../src/servicesFirebase/firebaseStore';
+import {
+  addDoc,
+  collection,
+  getDocs,
+  doc,
+  updateDoc,
+  deleteDoc,
+  postId,
+  textArea,
+  likePost,
+  usernameUser,
+
+} from 'firebase/firestore';
+import {
+  newPost,
+  userData,
+  accessPost,
+  editPost,
+  likeCounter,
+  deslikeCounter,
+  deletePost,
+} from '../../src/servicesFirebase/firebaseStore';
 
 jest.mock('firebase/firestore');
 
@@ -30,13 +50,18 @@ it('deve criar um post e guardar na coleção', async () => {
   const dataPostagem = 'xx/xx/xxxx';
   const postagem = 'texto';
   const username = 'usernameTeste';
+  const userId = 'usernameteste';
+  const like = 0;
+  const likesArray = [];
   const posts = {
     userName: username,
     data: dataPostagem,
     post: postagem,
-    // idUser: 'wxyzUser',
+    idUser: userId,
+    likes: like,
+    likesUsers: likesArray,
   };
-  await newPost(postagem, dataPostagem, username);
+  await newPost(postagem, dataPostagem, username, userId);
 
   expect(addDoc).toHaveBeenCalledTimes(1);
   expect(addDoc).toHaveBeenCalledWith(mockCollection, posts);
@@ -49,13 +74,78 @@ it('deve acessar a publicação criada', async () => {
   getDocs.mockResolvedValueOnce();
   const mockCollection = ['1', '2', '3'];
   collection.mockReturnValueOnce(mockCollection);
-  // const querySnapshot = mockCollection;
-  // const data;
-  // const messages = [];
   await accessPost();
-
   expect(getDocs).toHaveBeenCalledTimes(1);
   expect(getDocs).toHaveBeenCalledWith(mockCollection);
   expect(collection).toHaveBeenCalledTimes(1);
   expect(collection).toHaveBeenCalledWith(undefined, 'posts');
+});
+
+it('deve editar uma publicação', async () => {
+  // edit Post
+  updateDoc.mockResolvedValueOnce();
+  const mockDoc = 'doc';
+  doc.mockReturnValueOnce(mockDoc);
+  const posts = {
+    post: textArea,
+    idPost: postId,
+  };
+
+  await editPost(postId, textArea);
+  expect(updateDoc).toHaveBeenCalledTimes(1);
+  expect(updateDoc).toHaveBeenCalledWith(mockDoc, posts);
+  expect(doc).toHaveBeenCalledTimes(1);
+  expect(doc).toHaveBeenCalledWith(undefined, 'posts');
+});
+
+it('deve curtir uma publicação', async () => {
+  // like Post
+  updateDoc.mockResolvedValueOnce();
+  const mockDoc = 'doc';
+  doc.mockReturnValueOnce(mockDoc);
+  const posts = {
+    likes: likePost,
+    post: textArea,
+    idPost: postId,
+    username: usernameUser,
+  };
+
+  await likeCounter(likePost, postId, usernameUser);
+  expect(updateDoc).toHaveBeenCalledTimes(1);
+  expect(updateDoc).toHaveBeenCalledWith(mockDoc, posts);
+  expect(doc).toHaveBeenCalledTimes(1);
+  expect(doc).toHaveBeenCalledWith(undefined, 'posts');
+});
+
+it('deve descurtir uma publicação', async () => {
+  // delsike Post
+  updateDoc.mockResolvedValueOnce();
+  const mockDoc = 'doc';
+  doc.mockReturnValueOnce(mockDoc);
+  const posts = {
+    likes: likePost,
+    post: textArea,
+    idPost: postId,
+    username: usernameUser,
+  };
+  await deslikeCounter(likePost, postId, usernameUser);
+  expect(updateDoc).toHaveBeenCalledTimes(1);
+  expect(updateDoc).toHaveBeenCalledWith(mockDoc, posts);
+  expect(doc).toHaveBeenCalledTimes(1);
+  expect(doc).toHaveBeenCalledWith(undefined, 'posts');
+});
+
+it('deve deletar uma publicação', async () => {
+  // delete Post
+  deleteDoc.mockResolvedValueOnce();
+  const mockDoc = 'doc';
+  doc.mockReturnValueOnce(mockDoc);
+  // const snap = {
+
+  // };
+  await deletePost(postId);
+  expect(deleteDoc).toHaveBeenCalledTimes(1);
+  expect(deleteDoc).toHaveBeenCalledWith(mockDoc, posts);
+  expect(doc).toHaveBeenCalledTimes(1);
+  expect(doc).toHaveBeenCalledWith(undefined, 'posts');
 });

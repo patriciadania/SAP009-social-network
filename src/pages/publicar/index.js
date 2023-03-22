@@ -2,7 +2,6 @@ import Header from '../../components/header/index.js';
 import Footer from '../../components/footer/index.js';
 import { newPost } from '../../servicesFirebase/firebaseStore.js';
 import { Auth } from '../../servicesFirebase/firebaseAuth';
-// import { nameUser } from '../../servicesFirebase/firebaseAuth.js';
 
 export default () => {
   const container = document.createElement('div');
@@ -26,21 +25,34 @@ export default () => {
 
   container.append(sectionMain);
   container.append(Footer());
-
+  class UserException {
+    constructor(message) {
+      this.message = message;
+      this.name = 'UserException';
+    }
+  }
+  const text = container.querySelector('.textarea');
   const buttonPost = container.querySelector('#botao-postar');
   buttonPost.addEventListener('click', () => {
-    alert('Publicação efetuada com sucesso!');
-    const text = container.querySelector('.textarea');
-    const timeElapsed = Date.now();
-    const today = new Date(timeElapsed);
-    const dataPostagem = today.toLocaleDateString();
-    const username = Auth.currentUser.displayName;
-    const idUser = Auth.currentUser.uid;
-    newPost(text.value, dataPostagem, username, idUser);
-    try {
-      window.location.hash = '#Home';
-    } catch (e) {
-      // console.log(e);
+    if (text.value !== '') {
+      const timeElapsed = Date.now();
+      const today = new Date(timeElapsed);
+      const dataPostagem = today.toLocaleDateString();
+      const username = Auth.currentUser.displayName;
+      const idUser = Auth.currentUser.uid;
+      newPost(text.value, dataPostagem, username, idUser);
+      try {
+        if (text.value === '') {
+          const mensagemError = 'Por favor, escreva algo para publicar!';
+          throw new UserException(mensagemError);
+        }
+        alert('Publicação efetuada com sucesso!');
+        window.location.hash = '#Home';
+      } catch (error) {
+        alert(error.message);
+      }
+    } else {
+      alert('Por favor, escreva algo para publicar!');
     }
   });
   return container;

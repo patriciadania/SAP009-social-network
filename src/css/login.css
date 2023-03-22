@@ -114,6 +114,8 @@ body{
     }
     .section-login{
         grid-area: forms;
+        height: 500px;
+        gap:30px;
     }
     .logo-code-girls{
         width:180px;
@@ -121,10 +123,7 @@ body{
     .slogan{
         font-size:13px;
     }
-    .section-login{
-        height: 500px;
-        gap:30px;
-    }
+  
     .section-register{
         gap:45px;
     }

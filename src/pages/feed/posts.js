@@ -79,6 +79,7 @@ export default (timelinePost) => {
       const btnSavePost = container.querySelector('#btn-salvar');
       if (post.idUser !== Auth.currentUser.uid) {
         btnEditPost.setAttribute('class', 'hidden');
+        btnDelete.setAttribute('class', 'hidden');
       }
       btnEditPost.addEventListener('click', () => {
         textArea.removeAttribute('disabled');
@@ -94,11 +95,9 @@ export default (timelinePost) => {
         btnLike.removeAttribute('class');
         btnEditPost.removeAttribute('class');
         btnSavePost.setAttribute('class', 'hidden');
-        textArea.setAttribute('disabled');
+        textArea.setAttribute('disabled', 'disabled');
       });
-      if (post.idUser !== Auth.currentUser.uid) {
-        btnDelete.setAttribute('class', 'hidden');
-      }
+
       btnDelete.addEventListener('click', (e) => {
         e.preventDefault();
         if (window.confirm('Tem certeza de que deseja excluir a publicação?')) { //eslint-disable-line
