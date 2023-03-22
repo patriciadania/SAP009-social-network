@@ -281,6 +281,9 @@ footer{
 .girls-home{
     display:none;
 }
+.girl-publicar{
+    display: none;
+}
 
 ::-webkit-scrollbar-track {
     background-color: var(--bg2);
@@ -382,6 +385,13 @@ footer{
 
     .section-timeline{
         grid-area: timeline;
+    }
+    .girl-publicar{
+        position: absolute;
+        bottom: 70px;
+        right: 100px;
+        width: 540px;
+        display: block;
     }
 
     .girls-home{
