@@ -4,21 +4,22 @@ import {
   getDocs,
   orderBy,
   query,
-  // doc,
-  // updateDoc,
+  doc,
+  updateDoc,
   // deleteDoc,
   // postId,
   // textArea,
   // likePost,
   // usernameUser,
 } from 'firebase/firestore';
+import { describe } from 'yargs';
 
 import {
   accessPost,
   newPost,
   userData,
-//   // accessPost,
-//   // editPost,
+  // accessPost,
+  editPost,
 //   // likeCounter,
 //   // deslikeCounter,
 //   // deletePost,
@@ -32,6 +33,8 @@ jest.mock('firebase/firestore', () => ({
   getFirestore: jest.fn(),
   orderBy: jest.fn(),
   query: jest.fn(),
+  updateDoc: jest.fn(),
+  doc: jest.fn(),
 }));
 
 describe('firestore', () => {
@@ -121,8 +124,24 @@ describe('firestore', () => {
         { id: '2', texto: 'Segundo Post' },
         { id: '3', texto: 'Terceiro Post' },
       ]);
-      expect(getDocs).toHaveBeenCalledWith({});
+      expect(getDocs).toHaveBeenCalledWith(query(collection(undefined, 'posts'), orderBy('data')));
       expect(query).toHaveBeenCalledWith(collection(undefined, 'posts'), orderBy('data'));
+    });
+  });
+
+  describe('Função editPost', () => {
+    it('Deve ser uma função', () => {
+      expect(typeof editPost).toBe('function');
+    });
+    it('Deve editar uma publicação', async () => {
+      updateDoc.mockResolvedValue();
+      const postId = 'idPost';
+      const textArea = 'conteudoPost';
+      const posts = {
+        post: textArea,
+      };
+      await editPost(postId, textArea);
+      expect(updateDoc).toHaveBeenCalledWith(doc(undefined, 'posts', postId), posts);
     });
   });
 });
