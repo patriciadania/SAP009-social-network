@@ -1,4 +1,3 @@
-import { getFirestore } from 'firebase/firestore';
 import { initializeApp } from 'firebase/app';
 
 const firebaseConfig = {
@@ -10,6 +9,3 @@ const firebaseConfig = {
   appId: '1:422411686703:web:ef4d398502f4e6f7a747da',
 };
 export const app = initializeApp(firebaseConfig);
-
-// Initialize Cloud Firestore and get a reference to the service
-export const db = getFirestore(app);
