@@ -63,10 +63,7 @@ export default () => {
       })
       // eslint-disable-next-line no-unused-vars
       .catch((error) => {
-        console.log(error);
         alert('Erro ao efetuar login com o Google!');
-        console.log(error.message);
-        console.log(error.name);
       });
   });
   return loginContainer;
