@@ -6,22 +6,22 @@ import {
   query,
   doc,
   updateDoc,
+  arrayUnion,
+  arrayRemove,
   // deleteDoc,
   // postId,
   // textArea,
   // likePost,
   // usernameUser,
 } from 'firebase/firestore';
-import { describe } from 'yargs';
 
 import {
   accessPost,
   newPost,
   userData,
-  // accessPost,
   editPost,
-//   // likeCounter,
-//   // deslikeCounter,
+  likeCounter,
+  deslikeCounter,
 //   // deletePost,
 } from '../../src/servicesFirebase/firebaseStore';
 
@@ -35,6 +35,8 @@ jest.mock('firebase/firestore', () => ({
   query: jest.fn(),
   updateDoc: jest.fn(),
   doc: jest.fn(),
+  arrayUnion: jest.fn(),
+  arrayRemove: jest.fn(),
 }));
 
 describe('firestore', () => {
@@ -142,6 +144,42 @@ describe('firestore', () => {
       };
       await editPost(postId, textArea);
       expect(updateDoc).toHaveBeenCalledWith(doc(undefined, 'posts', postId), posts);
+    });
+  });
+
+  describe('Função contagem de likes', () => {
+    it('Deve ser uma função', () => {
+      expect(typeof likeCounter).toBe('function');
+    });
+    it('deve contabilizar a quantidade de curtidas', async () => {
+      updateDoc.mockResolvedValue();
+      const likePost = 1;
+      const postId = 'id-usuer';
+      const usernameUser = 'username-user';
+      const counterLike = {
+        likes: likePost,
+        likesUsers: arrayUnion(usernameUser),
+      };
+      await likeCounter(likePost, postId, usernameUser);
+      expect(updateDoc).toHaveBeenCalledWith(doc(undefined, 'posts', postId), counterLike);
+    });
+  });
+
+  describe('Função contagem de deslikes', () => {
+    it('Deve ser uma função', () => {
+      expect(typeof deslikeCounter).toBe('function');
+    });
+    it('Deve descontabilizar a quantidade de curtidas', async () => {
+      updateDoc.mockResolvedValue();
+      const likePost = 1;
+      const postId = 'id-usuer';
+      const usernameUser = 'username-user';
+      const counterUnlike = {
+        likes: likePost,
+        likesUsers: arrayRemove(usernameUser),
+      };
+      await deslikeCounter(likePost, postId, usernameUser);
+      expect(updateDoc).toHaveBeenCalledWith(doc(undefined, 'posts', postId), counterUnlike);
     });
   });
 });
