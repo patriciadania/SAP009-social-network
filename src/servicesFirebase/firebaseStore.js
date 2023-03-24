@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 import {
+  getFirestore,
   collection,
   addDoc,
   getDocs,
@@ -13,7 +14,10 @@ import {
   orderBy,
   // limit,
 } from 'firebase/firestore';
-import { db } from '../firebaseInit';
+import { app } from '../firebaseInit';
+
+// Initialize Cloud Firestore and get a reference to the service
+const db = getFirestore(app);
 
 export const userData = (name, lastname) => addDoc(collection(db, 'infos-add'), {
   nome: name,
@@ -36,8 +40,6 @@ export const accessPost = async () => {
   querySnapshot.forEach((item) => {
     const data = item.data();
     data.id = item.id;
-    console.log(data);
-    console.log(item);
     messages.push(data);
   });
   return messages;
