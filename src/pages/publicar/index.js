@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 import Header from '../../components/header/index.js';
 import Footer from '../../components/footer/index.js';
 import { newPost } from '../../servicesFirebase/firebaseStore.js';

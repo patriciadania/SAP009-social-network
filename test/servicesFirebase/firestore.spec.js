@@ -8,11 +8,7 @@ import {
   updateDoc,
   arrayUnion,
   arrayRemove,
-  // deleteDoc,
-  // postId,
-  // textArea,
-  // likePost,
-  // usernameUser,
+  deleteDoc,
 } from 'firebase/firestore';
 
 import {
@@ -22,7 +18,7 @@ import {
   editPost,
   likeCounter,
   deslikeCounter,
-//   // deletePost,
+  deletePost,
 } from '../../src/servicesFirebase/firebaseStore';
 
 jest.mock('firebase/firestore', () => ({
@@ -48,6 +44,7 @@ describe('firestore', () => {
     it('deve ser uma função', () => {
       expect(typeof userData).toBe('function');
     });
+
     it('deve acessar os dados do usuário e guardar na coleção', async () => {
       addDoc.mockResolvedValueOnce();
       const mockCollection = 'collection';
@@ -71,6 +68,7 @@ describe('firestore', () => {
     it('deve ser uma função', () => {
       expect(typeof newPost).toBe('function');
     });
+
     it('deve criar um post e guardar na coleção', async () => {
       addDoc.mockResolvedValueOnce();
       const mockCollection = 'collection';
@@ -103,6 +101,7 @@ describe('firestore', () => {
     it('deve ser uma função', () => {
       expect(typeof accessPost).toBe('function');
     });
+
     it('deve acessar a publicacao criada e retornar um array', async () => {
       orderBy.mockReturnValue();
       query.mockResolvedValue();
@@ -135,6 +134,7 @@ describe('firestore', () => {
     it('Deve ser uma função', () => {
       expect(typeof editPost).toBe('function');
     });
+
     it('Deve editar uma publicação', async () => {
       updateDoc.mockResolvedValue();
       const postId = 'idPost';
@@ -151,6 +151,7 @@ describe('firestore', () => {
     it('Deve ser uma função', () => {
       expect(typeof likeCounter).toBe('function');
     });
+
     it('deve contabilizar a quantidade de curtidas', async () => {
       updateDoc.mockResolvedValue();
       const likePost = 1;
@@ -169,10 +170,11 @@ describe('firestore', () => {
     it('Deve ser uma função', () => {
       expect(typeof deslikeCounter).toBe('function');
     });
+
     it('Deve descontabilizar a quantidade de curtidas', async () => {
       updateDoc.mockResolvedValue();
       const likePost = 1;
-      const postId = 'id-usuer';
+      const postId = 'id-post';
       const usernameUser = 'username-user';
       const counterUnlike = {
         likes: likePost,
@@ -180,6 +182,19 @@ describe('firestore', () => {
       };
       await deslikeCounter(likePost, postId, usernameUser);
       expect(updateDoc).toHaveBeenCalledWith(doc(undefined, 'posts', postId), counterUnlike);
+    });
+  });
+
+  describe('Função delete', () => {
+    it('Deve ser uma função', () => {
+      expect(typeof deletePost).toBe('function');
+    });
+
+    it('Deve deletar uma publicação', async () => {
+      deleteDoc.mockResolvedValue();
+      const postId = 'id-post';
+      await deletePost(postId);
+      expect(deleteDoc).toHaveBeenCalledWith(doc(undefined, 'posts', postId));
     });
   });
 });
