@@ -8,11 +8,7 @@ import {
   updateDoc,
   arrayUnion,
   arrayRemove,
-  // deleteDoc,
-  // postId,
-  // textArea,
-  // likePost,
-  // usernameUser,
+  deleteDoc,
 } from 'firebase/firestore';
 
 import {
@@ -22,22 +18,10 @@ import {
   editPost,
   likeCounter,
   deslikeCounter,
-//   // deletePost,
-} from '../../src/servicesFirebase/firebaseStore';
+  deletePost,
+} from '../../src/servicesFirebase/firebaseStore.js';
 
-jest.mock('firebase/firestore', () => ({
-  addDoc: jest.fn(),
-  collection: jest.fn(),
-  getDocs: jest.fn(),
-  db: jest.fn(),
-  getFirestore: jest.fn(),
-  orderBy: jest.fn(),
-  query: jest.fn(),
-  updateDoc: jest.fn(),
-  doc: jest.fn(),
-  arrayUnion: jest.fn(),
-  arrayRemove: jest.fn(),
-}));
+jest.mock('firebase/firestore');
 
 describe('firestore', () => {
   beforeEach(() => {
@@ -45,9 +29,6 @@ describe('firestore', () => {
   });
 
   describe('teste userData', () => {
-    it('deve ser uma função', () => {
-      expect(typeof userData).toBe('function');
-    });
     it('deve acessar os dados do usuário e guardar na coleção', async () => {
       addDoc.mockResolvedValueOnce();
       const mockCollection = 'collection';
@@ -68,9 +49,6 @@ describe('firestore', () => {
   });
 
   describe('Função newPost', () => {
-    it('deve ser uma função', () => {
-      expect(typeof newPost).toBe('function');
-    });
     it('deve criar um post e guardar na coleção', async () => {
       addDoc.mockResolvedValueOnce();
       const mockCollection = 'collection';
@@ -100,13 +78,14 @@ describe('firestore', () => {
   });
 
   describe('function accessPost', () => {
-    it('deve ser uma função', () => {
-      expect(typeof accessPost).toBe('function');
-    });
     it('deve acessar a publicacao criada e retornar um array', async () => {
-      orderBy.mockReturnValue();
-      query.mockResolvedValue();
-      getDocs.mockResolvedValue([
+      const mockOrderBy = 'order';
+      orderBy.mockReturnValueOnce(mockOrderBy);
+      const mockQuery = 'query';
+      query.mockReturnValueOnce(mockQuery);
+      const mockCollection = 'collection';
+      collection.mockReturnValueOnce(mockCollection);
+      getDocs.mockResolvedValueOnce([
         {
           id: '1',
           data: () => ({ texto: 'Primeiro post' }),
@@ -126,60 +105,90 @@ describe('firestore', () => {
         { id: '2', texto: 'Segundo Post' },
         { id: '3', texto: 'Terceiro Post' },
       ]);
-      expect(getDocs).toHaveBeenCalledWith(query(collection(undefined, 'posts'), orderBy('data')));
-      expect(query).toHaveBeenCalledWith(collection(undefined, 'posts'), orderBy('data'));
+      expect(orderBy).toHaveBeenCalledTimes(1);
+      expect(orderBy).toHaveBeenCalledWith('data');
+      expect(collection).toHaveBeenCalledTimes(1);
+      expect(collection).toHaveBeenCalledWith(undefined, 'posts');
+      expect(query).toHaveBeenCalledTimes(1);
+      expect(query).toHaveBeenCalledWith(mockCollection, mockOrderBy);
+      expect(getDocs).toHaveBeenCalledTimes(1);
+      expect(getDocs).toHaveBeenCalledWith(mockQuery);
     });
   });
 
   describe('Função editPost', () => {
-    it('Deve ser uma função', () => {
-      expect(typeof editPost).toBe('function');
-    });
     it('Deve editar uma publicação', async () => {
       updateDoc.mockResolvedValue();
+      const mockDoc = 'doc';
+      doc.mockReturnValueOnce(mockDoc);
       const postId = 'idPost';
       const textArea = 'conteudoPost';
-      const posts = {
+      const updatedPost = {
         post: textArea,
       };
       await editPost(postId, textArea);
-      expect(updateDoc).toHaveBeenCalledWith(doc(undefined, 'posts', postId), posts);
+      expect(doc).toHaveBeenCalledTimes(1);
+      expect(doc).toHaveBeenCalledWith(undefined, 'posts', postId);
+      expect(updateDoc).toHaveBeenCalledTimes(1);
+      expect(updateDoc).toHaveBeenCalledWith(mockDoc, updatedPost);
     });
   });
 
   describe('Função contagem de likes', () => {
-    it('Deve ser uma função', () => {
-      expect(typeof likeCounter).toBe('function');
-    });
     it('deve contabilizar a quantidade de curtidas', async () => {
       updateDoc.mockResolvedValue();
-      const likePost = 1;
-      const postId = 'id-usuer';
-      const usernameUser = 'username-user';
-      const counterLike = {
-        likes: likePost,
-        likesUsers: arrayUnion(usernameUser),
+      const mockDoc = 'doc';
+      doc.mockReturnValueOnce(mockDoc);
+      const mockUnion = 'union';
+      arrayUnion.mockReturnValueOnce(mockUnion);
+      const postId = 'id-post';
+      const username = 'username';
+      const updatedPost = {
+        likesUsers: mockUnion,
       };
-      await likeCounter(likePost, postId, usernameUser);
-      expect(updateDoc).toHaveBeenCalledWith(doc(undefined, 'posts', postId), counterLike);
+      await likeCounter(postId, username);
+      expect(doc).toHaveBeenCalledTimes(1);
+      expect(doc).toHaveBeenCalledWith(undefined, 'posts', postId);
+      expect(updateDoc).toHaveBeenCalledTimes(1);
+      expect(updateDoc).toHaveBeenCalledWith(mockDoc, updatedPost);
+      expect(arrayUnion).toHaveBeenCalledTimes(1);
+      expect(arrayUnion).toHaveBeenCalledWith(username);
     });
   });
 
   describe('Função contagem de deslikes', () => {
-    it('Deve ser uma função', () => {
-      expect(typeof deslikeCounter).toBe('function');
-    });
     it('Deve descontabilizar a quantidade de curtidas', async () => {
       updateDoc.mockResolvedValue();
-      const likePost = 1;
-      const postId = 'id-usuer';
-      const usernameUser = 'username-user';
-      const counterUnlike = {
-        likes: likePost,
-        likesUsers: arrayRemove(usernameUser),
+      const mockDoc = 'doc';
+      doc.mockReturnValueOnce(mockDoc);
+      const mockUnion = 'union';
+      arrayRemove.mockReturnValueOnce(mockUnion);
+      const postId = 'id-post';
+      const username = 'username';
+      const updatedPost = {
+        likesUsers: mockUnion,
       };
-      await deslikeCounter(likePost, postId, usernameUser);
-      expect(updateDoc).toHaveBeenCalledWith(doc(undefined, 'posts', postId), counterUnlike);
+      await deslikeCounter(postId, username);
+      expect(doc).toHaveBeenCalledTimes(1);
+      expect(doc).toHaveBeenCalledWith(undefined, 'posts', postId);
+      expect(updateDoc).toHaveBeenCalledTimes(1);
+      expect(updateDoc).toHaveBeenCalledWith(mockDoc, updatedPost);
+      expect(arrayRemove).toHaveBeenCalledTimes(1);
+      expect(arrayRemove).toHaveBeenCalledWith(username);
+    });
+  });
+
+  describe('Função delete', () => {
+    it('Deve deletar uma publicação', async () => {
+      const mockDoc = 'doc';
+      doc.mockReturnValueOnce(mockDoc);
+      deleteDoc.mockResolvedValueOnce();
+      const postId = 'id-post';
+      await deletePost(postId);
+      expect(doc).toHaveBeenCalledTimes(1);
+      expect(doc).toHaveBeenCalledWith(undefined, 'posts', postId);
+      expect(deleteDoc).toHaveBeenCalledTimes(1);
+      expect(deleteDoc).toHaveBeenCalledWith(mockDoc);
     });
   });
 });

@@ -3,6 +3,9 @@ import { createUser } from '../../servicesFirebase/firebaseAuth.js';
 import { userData } from '../../servicesFirebase/firebaseStore.js';
 // import {changeName } from '../../components/header/index.js' ;
 
+import logoRegister from '../../imagens/logo3.png';
+import girlRegister from '../../imagens/girlRegister.svg';
+
 export default () => {
   const loginContainer = document.createElement('div');
   loginContainer.classList.add('login-container');
@@ -10,10 +13,10 @@ export default () => {
   const content = `
     
     <header class='header-login display' >
-        <img src='./imagens/logo3.png' alt='logo-code-girls' class='logo-code-girls'>
+        <img src='${logoRegister}' alt='logo-code-girls' class='logo-code-girls'>
         <p> CONECTANDO MULHERES NA TECNOLOGIA </p>
     </header>
-    <img class='girl-login' src='../../imagens/girlRegister.svg' alt='Desenho-de-desenvolvedora'>
+    <img class='girl-login' src='${girlRegister}' alt='Desenho-de-desenvolvedora'>
     <form class='section-login section-register display'>
         <h1> CADASTRE-SE </h1>
         <input type='text' placeholder='Nome' id='nome-fulana'>

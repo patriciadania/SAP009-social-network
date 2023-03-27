@@ -3,6 +3,9 @@
 // import register from '../cadastrar/index.js';
 import { login, googleLogin } from '../../servicesFirebase/firebaseAuth.js';
 // import { editPost } from '../../servicesFirebase/firebaseStore.js';
+import logoLogin from '../../imagens/logo3.png';
+import girlsLogin from '../../imagens/girlsLogin.svg';
+import iconGoogle from '../../imagens/googlelogo.png';
 
 export default () => {
   const loginContainer = document.createElement('div');
@@ -10,10 +13,10 @@ export default () => {
 
   const content = `
     <header class='header-login display'>
-        <img src='./imagens/logo3.png' alt='logo-code-girls' class='logo-code-girls'>
+        <img src='${logoLogin}' alt='logo-code-girls' class='logo-code-girls'>
         <p class='slogan'> CONECTANDO MULHERES NA TECNOLOGIA </p>
     </header>
-    <img class='girl-login' src='../../imagens/girlsLogin.svg' alt='Desenho-de-desenvolvedora'>
+    <img class='girl-login' src='${girlsLogin}' alt='Desenho-de-desenvolvedora'>
     <form class='section-login display'>
         <h1> LOGIN </h1>
         <input type='email' name='email' id='email-login'  placeholder='Email'>
@@ -21,7 +24,7 @@ export default () => {
         <button class='button-login' id='button-login' type='button'> LOGIN </button>
         <span class='txt-login'> ou faça login com sua conta Google: </span>
         <button type='button' class='button-google'>
-            <img class='icon-google' alt='logo-google' src='./imagens/googlelogo.png'>
+            <img class='icon-google' alt='logo-google' src='${iconGoogle}'>
         </button>
         <hr class='hr-login'> 
         <span class='txt-conta'> ainda não tem conta? </span>

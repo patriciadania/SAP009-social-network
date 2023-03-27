@@ -3,6 +3,8 @@ import Footer from '../../components/footer/index.js';
 import { newPost } from '../../servicesFirebase/firebaseStore.js';
 import { Auth } from '../../servicesFirebase/firebaseAuth';
 
+import girlPublicar from '../../imagens/girlCellphone.svg';
+
 export default () => {
   const container = document.createElement('div');
   container.append(Header());
@@ -19,7 +21,7 @@ export default () => {
       <button type='button' id='botao-postar' class='botao-postar'>Postar</button>
     </div>
   </div>   
-  <img class='girl-publicar' src='../../imagens/girlCellphone.svg' alt='Desenho-de-desenvolvedora'>
+  <img class='girl-publicar' src='${girlPublicar}' alt='Desenho-de-desenvolvedora'>
   </main>
   `;
   sectionMain.innerHTML = template;

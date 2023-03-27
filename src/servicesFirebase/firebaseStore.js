@@ -9,14 +9,11 @@ import {
   arrayUnion,
   arrayRemove,
   deleteDoc,
-  onSnapshot,
   query,
   orderBy,
-  // limit,
 } from 'firebase/firestore';
-import { app } from '../firebaseInit';
+import { app } from '../firebaseInit.js';
 
-// Initialize Cloud Firestore and get a reference to the service
 const db = getFirestore(app);
 
 export const userData = (name, lastname) => addDoc(collection(db, 'infos-add'), {
@@ -45,31 +42,16 @@ export const accessPost = async () => {
   return messages;
 };
 
-export const editPost = (postId, textArea) => {
-  updateDoc(doc(db, 'posts', postId), {
-    post: textArea,
-  });
-  console.log('chegou aqui no firestore');
-  console.log(postId);
-  console.log(textArea);
-};
-// preciso guardar o like em algum lugar, no firestore;
-// ;
+export const editPost = (postId, textArea) => updateDoc(doc(db, 'posts', postId), {
+  post: textArea,
+});
 
-export const likeCounter = async (likePost, postId, usernameUser) => updateDoc(doc(db, 'posts', postId), {
-  likes: likePost,
+export const likeCounter = async (postId, usernameUser) => updateDoc(doc(db, 'posts', postId), {
   likesUsers: arrayUnion(usernameUser),
 });
 
-export const deslikeCounter = async (likePost, postId, usernameUser) => updateDoc(doc(db, 'posts', postId), {
-  likes: likePost,
+export const deslikeCounter = async (postId, usernameUser) => updateDoc(doc(db, 'posts', postId), {
   likesUsers: arrayRemove(usernameUser),
 });
 
-export const deletePost = async (postId) => {
-  await deleteDoc(doc(db, 'posts', postId));
-  const snap = onSnapshot(doc(db, 'posts', postId), (doc3) => {
-    console.log('Current data: ', doc3.data());
-  });
-  return snap;
-};
+export const deletePost = async (postId) => deleteDoc(doc(db, 'posts', postId));

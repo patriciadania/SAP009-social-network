@@ -2,6 +2,8 @@
 // import { getAuth } from 'firebase/auth';
 import { logOut, Auth } from '../../servicesFirebase/firebaseAuth';
 
+import logo from '../../imagens/logo3.png';
+
 export default () => {
   const headerContainer = document.createElement('header');
   headerContainer.classList.add('display');
@@ -10,7 +12,7 @@ export default () => {
   const headerContent = `
   <section class='teste-header'>
     <section class='display section-topo'>
-      <img class='logo' src='./imagens/logo3.png' alt='logo-code-girls'>
+      <img class='logo' src='${logo}' alt='logo-code-girls'>
       <nav class='nav'>
 
         <div class='container'>
