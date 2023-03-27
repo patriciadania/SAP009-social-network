@@ -46,13 +46,11 @@ export const editPost = (postId, textArea) => updateDoc(doc(db, 'posts', postId)
   post: textArea,
 });
 
-export const likeCounter = async (likePost, postId, usernameUser) => updateDoc(doc(db, 'posts', postId), {
-  likes: likePost,
+export const likeCounter = async (postId, usernameUser) => updateDoc(doc(db, 'posts', postId), {
   likesUsers: arrayUnion(usernameUser),
 });
 
-export const deslikeCounter = async (likePost, postId, usernameUser) => updateDoc(doc(db, 'posts', postId), {
-  likes: likePost,
+export const deslikeCounter = async (postId, usernameUser) => updateDoc(doc(db, 'posts', postId), {
   likesUsers: arrayRemove(usernameUser),
 });
 

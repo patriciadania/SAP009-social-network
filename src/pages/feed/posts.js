@@ -8,7 +8,7 @@ export default (timelinePost) => {
     allPosts.forEach((post) => {
       const container = document.createElement('div');
       container.classList.add('timeline');
-      let countLikes = post.likes;
+      let countLikes = post.likesUsers.length;
       const template = `
         <div class='feed display'>
           <div class='display userNameDate'>
@@ -61,8 +61,8 @@ export default (timelinePost) => {
         heartFill.classList.remove('hidden');
         countLikes += 1;
         likesCounterTela.innerHTML = countLikes;
-        const liked = countLikes;
-        likeCounter(liked, post.id, Auth.currentUser.displayName);
+        // const liked = countLikes;
+        likeCounter(post.id, Auth.currentUser.displayName);
       });
 
       heartFill.addEventListener('click', () => {
@@ -70,8 +70,8 @@ export default (timelinePost) => {
         heartFill.classList.add('hidden');
         countLikes -= 1;
         likesCounterTela.innerHTML = countLikes;
-        const deslike = countLikes;
-        deslikeCounter(deslike, post.id, Auth.currentUser.displayName);
+        // const deslike = countLikes;
+        deslikeCounter(post.id, Auth.currentUser.displayName);
       });
 
       const btnEditPost = container.querySelector('#edit');

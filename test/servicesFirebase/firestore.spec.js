@@ -19,7 +19,8 @@ import {
   likeCounter,
   deslikeCounter,
   deletePost,
-} from '../../src/servicesFirebase/firebaseStore';
+} from '../../src/servicesFirebase/firebaseStore.js';
+
 
 jest.mock('firebase/firestore');
 
@@ -141,14 +142,13 @@ describe('firestore', () => {
       doc.mockReturnValueOnce(mockDoc);
       const mockUnion = 'union';
       arrayUnion.mockReturnValueOnce(mockUnion);
-      const likePost = 1;
+
       const postId = 'id-post';
       const username = 'username';
       const updatedPost = {
-        likes: likePost,
         likesUsers: mockUnion,
       };
-      await likeCounter(likePost, postId, username);
+      await likeCounter(postId, username);
       expect(doc).toHaveBeenCalledTimes(1);
       expect(doc).toHaveBeenCalledWith(undefined, 'posts', postId);
       expect(updateDoc).toHaveBeenCalledTimes(1);
@@ -165,14 +165,13 @@ describe('firestore', () => {
       doc.mockReturnValueOnce(mockDoc);
       const mockUnion = 'union';
       arrayRemove.mockReturnValueOnce(mockUnion);
-      const likePost = 1;
       const postId = 'id-post';
       const username = 'username';
       const updatedPost = {
-        likes: likePost,
         likesUsers: mockUnion,
       };
-      await deslikeCounter(likePost, postId, username);
+      await deslikeCounter(postId, username);
+
       expect(doc).toHaveBeenCalledTimes(1);
       expect(doc).toHaveBeenCalledWith(undefined, 'posts', postId);
       expect(updateDoc).toHaveBeenCalledTimes(1);
