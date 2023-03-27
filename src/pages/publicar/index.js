@@ -1,7 +1,8 @@
+/* eslint-disable no-alert */
 import Header from '../../components/header/index.js';
 import Footer from '../../components/footer/index.js';
 import { newPost } from '../../servicesFirebase/firebaseStore.js';
-import { Auth } from '../../servicesFirebase/firebaseAuth';
+import { Auth } from '../../servicesFirebase/firebaseAuth.js';
 
 import girlPublicar from '../../imagens/girlCellphone.svg';
 

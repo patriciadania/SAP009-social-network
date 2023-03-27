@@ -1,4 +1,3 @@
-// aqui exportaras las funciones que necesites
 import Header from '../../components/header/index.js';
 import Footer from '../../components/footer/index.js';
 import posts from '../feed/posts.js';
@@ -14,17 +13,17 @@ export default () => {
   sectionMain.classList.add('section-main');
 
   const template = ` 
+
   <img class='girls-home' src='${girlsHome}' alt='Desenho-de-desenvolvedora'>
   <section class='display section-timeline' id='timeline-post' >
     
   </section>
+
   `;
 
   sectionMain.innerHTML += template;
-
   container.append(sectionMain);
   container.append(Footer());
-
   const timelinePost = container.querySelector('#timeline-post');
   posts(timelinePost);
 
