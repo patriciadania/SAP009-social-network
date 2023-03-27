@@ -37,8 +37,8 @@ export default () => {
       alert('Por favor, preencha todos os campos.');
     } else {
       // const emailfulana = loginContainer.querySelector('#email-cadastro');
-      userData(nome.value, sobrenome.value, usuario.value, email.value);
       createUser(email.value, senha.value, nome.value, sobrenome.value, usuario.value)
+        .then(() => userData(nome.value, sobrenome.value, usuario.value, email.value))
         .then(() => {
           window.location.hash = '#login';
         })

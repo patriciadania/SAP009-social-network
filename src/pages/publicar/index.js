@@ -2,7 +2,7 @@
 import Header from '../../components/header/index.js';
 import Footer from '../../components/footer/index.js';
 import { newPost } from '../../servicesFirebase/firebaseStore.js';
-import { Auth } from '../../servicesFirebase/firebaseAuth';
+import { Auth } from '../../servicesFirebase/firebaseAuth.js';
 
 export default () => {
   const container = document.createElement('div');

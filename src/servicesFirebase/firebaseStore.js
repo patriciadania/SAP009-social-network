@@ -12,7 +12,7 @@ import {
   query,
   orderBy,
 } from 'firebase/firestore';
-import { app } from '../firebaseInit';
+import { app } from '../firebaseInit.js';
 
 const db = getFirestore(app);
 
