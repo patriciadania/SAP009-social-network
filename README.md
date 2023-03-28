@@ -30,7 +30,7 @@ cobertura nos testes.
   [Linkedin](https://www.linkedin.com/in/angelinamelo/) | [Github](https://github.com/ajuliamm)
   <br>
   <br>
-  Patricia Adania <br>
+  Patricia Adania de Oliveira<br>
   [Linkedin](https://www.linkedin.com/in/patriciadania/) | [Github](https://github.com/patriciadania)
   <br>
   
