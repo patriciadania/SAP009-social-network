@@ -20,18 +20,18 @@ cobertura nos testes.
   <img align="center" alt="Firebase" height="30" width="40" src="https://www.vectorlogo.zone/logos/firebase/firebase-icon.svg" />
   <br>
 
-  Desenvolvido por 
+  Desenvolvido por <br>
   <br>
-  Ana Leticia B. Prince <br> 
-  [Linkedin](https://www.linkedin.com/in/analeticiabacha) | [Github](https://github.com/analeticiabacha)
+    Patricia Adania de Oliveira<br>
+  [Linkedin](https://www.linkedin.com/in/patriciadania/) | [Github](https://github.com/patriciadania)
   <br>
   <br>
   Angelina Melo <br>
   [Linkedin](https://www.linkedin.com/in/angelinamelo/) | [Github](https://github.com/ajuliamm)
   <br>
   <br>
-  Patricia Adania de Oliveira<br>
-  [Linkedin](https://www.linkedin.com/in/patriciadania/) | [Github](https://github.com/patriciadania)
+  Ana Leticia B. Prince <br> 
+  [Linkedin](https://www.linkedin.com/in/analeticiabacha) | [Github](https://github.com/analeticiabacha)
   <br>
   
 </div>
