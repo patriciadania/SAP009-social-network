@@ -21,7 +21,6 @@ import {
   deletePost,
 } from '../../src/servicesFirebase/firebaseStore.js';
 
-
 jest.mock('firebase/firestore');
 
 describe('firestore', () => {
